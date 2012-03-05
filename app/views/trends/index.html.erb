@@ -1,0 +1,32 @@
+<h1>Listing trends</h1>
+<p>
+  <%= form_for @trend do |f| %>
+    <% if @trend.errors.any? %>
+      <div id="errorExplanation">
+        <% @trend.errors.full_messages.each do |msg| %>  
+          <li><%= msg %></li>  
+        <% end %>
+    </div>
+    <% end %>
+    <%= f.search_field :query %><%= submit_tag "search twitter" %>
+  <% end %>
+</p>
+<table>
+  <tr>
+    <th>Search term</th>
+    <th>Searched on</th>
+    <th></th>
+    <th></th>
+  </tr>
+<% @trends.each do |trend| %>
+  <tr>
+    <td><%= link_to trend.query, trend_results_path(trend) unless trend.results.blank? %> and found <%= pluralize trend.results.count, "response" %> </td>
+    <td><%= trend.created_at.strftime("on %c ")%></td>
+    <td></td>
+    <td><%= link_to 'Destroy', trend, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+<p>
+  <%= "No search results yet." unless @trends.any? %>
+</p>

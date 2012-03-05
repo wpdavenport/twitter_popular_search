@@ -1,0 +1,12 @@
+<h2>Trend results for <%= @trend.query%> </h2>
+<%= link_to "Back", trends_path %>
+<div class="results">
+    <ul>
+  <% @results.each do |result| %>
+      <li>
+        <p><div><strong><%= result.user_name.to_s %></strong></div>
+        <div><%= result.result %></div></p>
+      </li>
+  <% end %>
+    <ul>
+</div>
